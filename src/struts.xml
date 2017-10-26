@@ -6,21 +6,23 @@
 <struts>
 	<!-- 용량제한 100MB 로 설정 -->
 	<constant name="struts.multipart.maxSize" value="104857600" />
+	<constant name="struts.multipart.saveDir" value="C:\upload\temp" />
 	
 	<package name="board" extends="struts-default">
-<!-- 
-	 	글로벌 예외처리 화면설정
+<!--  	글로벌 예외처리 화면설정
 		<global-results>
 			<result name="error">/board/pageError.jsp</result>
 		</global-results>
 		<global-exception-mappings>
 			<exception-mapping result="error" exception="java.lang.Exception" />
 		</global-exception-mappings>
- -->
+-->
  		<!-- 게시판 리스트 액션 -->
  		<action name="listAction" class="board.ListAction">
  			<result>/board/boardList.jsp</result>
  		</action>
+ 		
+ 		
  		<action name="writeForm" class="board.WriteAction" method="form">
  			<result>/board/boardWrite.jsp</result>
  		</action>
@@ -29,6 +31,8 @@
  				<param name="actionName">listAction</param>
  			</result>
  		</action>
+ 		
+ 		
  		<action name="viewAction" class="board.ViewAction">
  			<result>/board/boardView.jsp</result>
  		</action>
@@ -38,7 +42,7 @@
  				<param name="contentType">binary/octet-stream</param>
  				<param name="inputName">inputStream</param>
  				<param name="contentDisposition">${contentDisposition}</param>
- 				<param name="contentLength">${contentLength</param>
+ 				<param name="contentLength">${contentLength}</param>
  				<param name="bufferSize">4096</param>
  			</result>
  		</action>
@@ -50,5 +54,19 @@
  			<result name="error">/board/checkError.jsp</result>
  			<result>/board/checkSuccess.jsp</result>
  		</action>
+ 		
+ 		
+ 		<action name="modifyForm" class="board.ViewAction">
+ 			<result type="chain">writeForm</result>
+ 		</action>
+ 		<action name="modifyAction" class="board.ModifyAction">
+ 			<result type="chain">viewAction</result>
+ 		</action>
+ 		
+ 		
+ 		<action name="deleteAction" class="board.DeleteAction">
+ 			<result type="chain">listAction</result>
+ 		</action>
+ 		
 	</package>
 </struts>

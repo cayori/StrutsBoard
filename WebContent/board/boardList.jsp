@@ -75,7 +75,7 @@
 		
 		<tr align="right">
 			<td colspan="5">
-				<input type="button" value="글쓰기" class="inputb" onclick="javascript:location.href='writeForm.action?currentPage=<s:property value="currentPage"/>';">
+				<input type="button" value="글쓰기" class="inputb" onclick="javascript:location.href='writeForm.action?currentPage=<s:property value="currentPage"/>'">
 		</tr>
 		
 	</table>

@@ -6,7 +6,7 @@ public class PagingAction {
 	private int totalPage;		// 전체 페이지 수
 	private int blockCount;		// 한 페이지의 게시물 수
 	private int blockpage;		// 한 화면에 보여줄 페이지 수
-	private int startCount;		// 한 페이지에서 보여줄 게시글의 시작번호 (게시판에서의 제일 아랫놈)
+	private int startCount;		// 한 페이지에서 보여줄 게시글의 시작번호 (게시판에서의 제일 윗놈)
 	private int endCount;		// 한 페이지에서 보여줄 게시글의 끝 번호
 	private int startPage;		// 시작 페이지
 	private int endPage;		// 마지막 페이지
@@ -28,10 +28,12 @@ public class PagingAction {
 		if(currentPage > totalPage)	currentPage = totalPage;
 		
 		// 현재 페이지의 처음과 마지막 글의 번호 가져오기 ... 이건 봐도봐도 모르겠다.. 나중에 찍어보면서 체크
+		// 체크해본 결과... start, end 가 내가 생각한거랑 반대로.
+		// 디비에서 순서를 다 정렬해서 가져온걸, 가장 상단에(최근) 게시물을 start 로 설정.
 		startCount = (currentPage-1) * blockCount;
 		endCount = startCount + blockCount - 1;
 		
-		// 시작페이지와 마지막 페이지 값 구하기. ... 이것도... 이거만 봐서는 모르겠는데 ㅠㅜ
+		// 시작페이지와 마지막 페이지 값 구하기. ... 
 		startPage = (int)((currentPage-1) / blockPage) * blockPage + 1;
 		endPage = startPage + blockPage - 1;
 		
@@ -73,8 +75,24 @@ public class PagingAction {
 			pagingHtml.append("[다음]");
 			pagingHtml.append("</a>");
 		}
+		printValues();
 	}
 
+	// 각 페이지에서 세팅된 값 출력하기
+	public void printValues() {
+		System.out.println("==================================================");
+		System.out.println("currentPage	: "+currentPage+" --현재페이지"); 
+		System.out.println("totalCount	: "+totalCount+" --전체 게시물 수");
+		System.out.println("totalPage	: "+totalPage+" --전체 페이지 수");
+		System.out.println("blockCount	: "+blockCount+" --한 페이지의 게시물 수");
+		System.out.println("blockpage	: "+blockpage+" --한 화면에 보여줄 페이지 수");
+		System.out.println("startCount	: "+startCount+" --한 페이지에서 보여줄 게시글의 시작번호 (게시판에서의 제일 윗놈)");
+		System.out.println("endCount	: "+endCount+" --한 페이지에서 보여줄 게시글의 끝 번호");
+		System.out.println("startPage	: "+startPage+" --시작 페이지");
+		System.out.println("endPage		: "+endPage+" --마지막 페이지");
+		System.out.println("==================================================");
+	}
+	
 	public int getCurrentPage() {
 		return currentPage;
 	}

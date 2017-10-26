@@ -36,7 +36,7 @@
 		<include refid="select-all" />
 		<include refid="where-no" />
 	</select>
-	<select id="selectLastNo" resultClass="Board" parameterClass="int">
+	<select id="selectLastNo" resultClass="board" parameterClass="int">
 		SELECT MAX(no) as no FROM sboardjp
 	</select>
 	<select id="selectPassword" resultMap="boardRes">

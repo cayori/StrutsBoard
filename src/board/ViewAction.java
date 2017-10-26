@@ -45,6 +45,9 @@ public class ViewAction extends ActionSupport {
 		sqlMapper.update("updateReadHit",paramClass);
 		// 해당 번호의 글을 가져온다.
 		resultClass = (BoardVO)sqlMapper.queryForObject("selectOne",getNo());
+		// 본문의 줄바꿈 처리
+		resultClass.setContent(resultClass.getContent().replace("\r\n","<br>"));
+		
 		return SUCCESS;
 	}
 	
